@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using NoBreaky.AssertionBuilders;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Diagnostics.CodeAnalysis;
 
 namespace NoBreaky;
 
@@ -7,6 +10,7 @@ public class NoBreaky<TProgram> where TProgram : class
 {
     private readonly WebApplicationFactory<TProgram> _applicationFactory;
     private readonly string _baseOpenApiUrl = "/openapi/v1.json";
+    private string _pattern = string.Empty;
 
     private NoBreaky(WebApplicationFactory<TProgram> applicationFactory, string baseOpenApiUrl)
     {
@@ -52,5 +56,15 @@ public class NoBreaky<TProgram> where TProgram : class
         // _headerAssertions = builder.Build();
         return this;
     }
+     
+    public NoBreaky<TProgram> Endpoint([StringSyntax("Route")] string pattern)
+    {
+  
+        return this;
+    }
 
+    public void IsSafe()
+    {
+
+    }
 }
