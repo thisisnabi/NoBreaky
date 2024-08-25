@@ -12,4 +12,6 @@ app.MapGet("/thisisnabi", () =>
 });
 
 app.Run();
- 
+
+
+public partial class Program { }

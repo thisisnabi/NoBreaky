@@ -1,17 +1,14 @@
-﻿using Microsoft.VisualStudio.TestPlatform.TestHost;
+﻿namespace NoBreaky.UnitTests;
 
-namespace NoBreaky.UnitTests
+public class NoBreakyTests
 {
-    public class NoBreakyTests
+    [Fact]
+    public void App_Should_Have_thisisnabi_Endpoint()
     {
-        [Fact]
-        public void App_Should_Have_thisisnabi_Endpoint()
-        {
-            var client = NoBreaky<Program>.Create();
+        var client = NoBreaky<Program>.Create();
 
-            client.Endpoint("/thisisnabi")
-                  .IsSafe();
-        }
-
+        client.Endpoint("/thisisnabi")
+              .IsSafe();
     }
+
 }
