@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoBreaky", "src\NoBreaky\No
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoBreaky.TemplateREST", "src\NoBreaky.TemplateREST\NoBreaky.TemplateREST.csproj", "{0C3F477A-6E15-47D4-ACAF-22241DEE0E8C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoBreaky.UnitTests", "tests\NoBreaky.UnitTests\NoBreaky.UnitTests.csproj", "{8A7AC90F-CF32-41F0-88E7-B7B09740AF24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{0C3F477A-6E15-47D4-ACAF-22241DEE0E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C3F477A-6E15-47D4-ACAF-22241DEE0E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C3F477A-6E15-47D4-ACAF-22241DEE0E8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A7AC90F-CF32-41F0-88E7-B7B09740AF24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A7AC90F-CF32-41F0-88E7-B7B09740AF24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A7AC90F-CF32-41F0-88E7-B7B09740AF24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A7AC90F-CF32-41F0-88E7-B7B09740AF24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{96125619-2A3A-4BCB-8FB0-3A1F3A530250} = {20275047-065B-49B2-8F87-8260C69E6AA3}
 		{0C3F477A-6E15-47D4-ACAF-22241DEE0E8C} = {20275047-065B-49B2-8F87-8260C69E6AA3}
+		{8A7AC90F-CF32-41F0-88E7-B7B09740AF24} = {083DE022-A831-401F-B9E6-0BE51E30AC92}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0D7A7046-9060-47DE-A5F6-F69700E0662F}
