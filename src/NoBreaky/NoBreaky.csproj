@@ -4,6 +4,13 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<Version>0.0.1</Version>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<Title>NoBreaky</Title>
+	<Description>Avoid Breaking Changes in ASP.NET Core REST APIs</Description>
+	<PackageProjectUrl>https://github.com/thisisnabi/NoBreaky</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/thisisnabi/NoBreaky</RepositoryUrl>
+	<PackageTags>asp-net-core; dotnet</PackageTags>
   </PropertyGroup>
 
 </Project>
