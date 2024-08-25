@@ -1,0 +1,6 @@
+@NoBreaky.TemplateREST_HostAddress = http://localhost:5189
+
+GET {{NoBreaky.TemplateREST_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

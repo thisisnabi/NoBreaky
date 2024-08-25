@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{083DE022
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoBreaky", "src\NoBreaky\NoBreaky.csproj", "{96125619-2A3A-4BCB-8FB0-3A1F3A530250}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoBreaky.TemplateREST", "src\NoBreaky.TemplateREST\NoBreaky.TemplateREST.csproj", "{0C3F477A-6E15-47D4-ACAF-22241DEE0E8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,12 +21,17 @@ Global
 		{96125619-2A3A-4BCB-8FB0-3A1F3A530250}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96125619-2A3A-4BCB-8FB0-3A1F3A530250}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96125619-2A3A-4BCB-8FB0-3A1F3A530250}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C3F477A-6E15-47D4-ACAF-22241DEE0E8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C3F477A-6E15-47D4-ACAF-22241DEE0E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C3F477A-6E15-47D4-ACAF-22241DEE0E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C3F477A-6E15-47D4-ACAF-22241DEE0E8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{96125619-2A3A-4BCB-8FB0-3A1F3A530250} = {20275047-065B-49B2-8F87-8260C69E6AA3}
+		{0C3F477A-6E15-47D4-ACAF-22241DEE0E8C} = {20275047-065B-49B2-8F87-8260C69E6AA3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0D7A7046-9060-47DE-A5F6-F69700E0662F}
