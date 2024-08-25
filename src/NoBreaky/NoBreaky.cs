@@ -51,9 +51,7 @@ public class NoBreaky<TProgram> where TProgram : class
      
     public NoBreaky<TProgram> WithHeaders(Action<HeaderAssertionBuilder> headerAssertions)
     {
-        var builder = new HeaderAssertionBuilder();
-        headerAssertions(builder);
-        // _headerAssertions = builder.Build();
+ 
         return this;
     }
      
