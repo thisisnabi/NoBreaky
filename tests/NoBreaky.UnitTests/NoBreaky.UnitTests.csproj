@@ -15,6 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\NoBreaky.TemplateREST\NoBreaky.TemplateREST.csproj" />
+    <ProjectReference Include="..\..\src\NoBreaky\NoBreaky.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
