@@ -4,7 +4,15 @@ namespace NoBreaky.UnitTests;
 
 public class NoBreakyTests
 {
-    public class ContractTestRequest
+    public class ContractRequest
+    {
+        public string Name { get; set; }
+
+        [Required()]
+        public int OrderId { get; set; }
+    }
+     
+    public class ContractResponse
     {
         public string Name { get; set; }
 
@@ -12,11 +20,12 @@ public class NoBreakyTests
         public int OrderId { get; set; }
     }
 
+
     [Fact]
     public void App_Should_Have_thisisnabi_Endpoint()
     {
         var client = NoBreaky<Program>.Create();
-         
+
         client.Endpoint("/thisisnabi")
               .IsGetMethod()
               .RequestWith(request => {
@@ -40,9 +49,9 @@ public class NoBreakyTests
                       header.Add<int>("UserId").IsRequired();
                       header.Add<long>("Clmko");
                   });
-                   
-                  request.WithBody<ContractTestRequest>();
+                  request.WithBody<ContractRequest>();
               })
+              .ResponseOn<ContractResponse>()
               .IsSafe();
     }
 
