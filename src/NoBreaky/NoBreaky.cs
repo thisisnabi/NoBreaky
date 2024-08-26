@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using Newtonsoft.Json.Linq;
 using NoBreaky.AssertionBuilders;
+using NoBreaky.Assertions;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using Xunit;
 using static NoBreaky.Constants;
@@ -13,7 +16,9 @@ public class NoBreaky<TProgram> where TProgram : class
     private readonly WebApplicationFactory<TProgram> _applicationFactory;
     private readonly string _baseOpenApiUrl = "/openapi/v1.json";
     private string _ednpoint = string.Empty;
+    private string _defaultHttpMethod = string.Empty;
     private IList<Action<JObject>> _functions;
+    private IList<HeaderAssertion> _headerAssertions;
 
     #region Constractors
     private NoBreaky(WebApplicationFactory<TProgram> applicationFactory, string baseOpenApiUrl)
@@ -21,6 +26,7 @@ public class NoBreaky<TProgram> where TProgram : class
         _applicationFactory = applicationFactory;
         _baseOpenApiUrl = baseOpenApiUrl;
         _functions = [];
+        _headerAssertions = [];
     }
 
     public static NoBreaky<TProgram> Create(string baseOpenApiUrl = "/openapi/v1.json")
@@ -48,11 +54,6 @@ public class NoBreaky<TProgram> where TProgram : class
     public NoBreaky<TProgram> IsOptionsMethod() => Method(Constants.HttpMethod.OPTIONS);
 
     public NoBreaky<TProgram> IsTraceMethod() => Method(Constants.HttpMethod.TRACE);
-
-    public NoBreaky<TProgram> Method(string method)
-    {
-        return this;
-    }
     #endregion
 
     #region Endpoint Assersion
@@ -80,13 +81,45 @@ public class NoBreaky<TProgram> where TProgram : class
         return transformed;
     }
     #endregion
-     
 
-    public NoBreaky<TProgram> WithHeaders(Action<HeaderAssertionBuilder> headerAssertions)
+    #region Method Assertion
+    public NoBreaky<TProgram> Method(string method)
     {
+        _defaultHttpMethod = method ?? throw new ArgumentNullException(nameof(method));
+
+        _functions.Add((item) =>
+        {
+            var method = item[JsonItems.PATHS]?[_ednpoint]?[_defaultHttpMethod];
+            Assert.True(method is not null,
+                 $"The HTTP method '{_defaultHttpMethod}' for path '{_ednpoint}' is missing.");
+        });
 
         return this;
     }
+    #endregion
+
+    #region Header Assertion
+    public NoBreaky<TProgram> RequestWith(Action<RequestBuilder> requestAction)
+    {
+        var builder = new RequestBuilder();
+        requestAction(builder);
+
+        var items = builder.Build();
+
+        return this;
+    }
+
+    public NoBreaky<TProgram> ResponseOn(Action<ResponseBuilder> requestAction)
+    {
+        var builder = new ResponseBuilder();
+        requestAction(builder);
+
+        var items = builder.Build();
+
+        return this;
+    }
+
+    #endregion
 
 
     public void IsSafe()
