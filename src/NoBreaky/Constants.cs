@@ -14,4 +14,9 @@ internal static class Constants
         internal const string OPTIONS = "options";
         internal const string TRACE = "trace";
     }
+
+    internal static class JsonItems
+    {
+        internal const string PATHS = "paths";
+    }
 }

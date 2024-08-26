@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json.Linq;
 using NoBreaky.AssertionBuilders;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
+using Xunit;
+using static NoBreaky.Constants;
 
 namespace NoBreaky;
 
@@ -8,12 +12,15 @@ public class NoBreaky<TProgram> where TProgram : class
 {
     private readonly WebApplicationFactory<TProgram> _applicationFactory;
     private readonly string _baseOpenApiUrl = "/openapi/v1.json";
-    private string _pattern = string.Empty;
+    private string _ednpoint = string.Empty;
+    private IList<Action<JObject>> _functions;
 
+    #region Constractors
     private NoBreaky(WebApplicationFactory<TProgram> applicationFactory, string baseOpenApiUrl)
     {
         _applicationFactory = applicationFactory;
         _baseOpenApiUrl = baseOpenApiUrl;
+        _functions = [];
     }
 
     public static NoBreaky<TProgram> Create(string baseOpenApiUrl = "/openapi/v1.json")
@@ -21,6 +28,7 @@ public class NoBreaky<TProgram> where TProgram : class
         var factory = new WebApplicationFactory<TProgram>();
         return new NoBreaky<TProgram>(factory, baseOpenApiUrl);
     }
+    #endregion
 
     #region Http Verbs
     public NoBreaky<TProgram> IsGetMethod() => Method(Constants.HttpMethod.GET);
@@ -47,20 +55,50 @@ public class NoBreaky<TProgram> where TProgram : class
     }
     #endregion
 
+    #region Endpoint Assersion
+    public NoBreaky<TProgram> Endpoint([StringSyntax("Route")] string pattern)
+    {
+        _ = pattern ?? throw new ArgumentNullException(nameof(pattern));
+        _ednpoint = TransformPattern(pattern);
+        _functions.Add((item) =>
+        {
+            var path = item[JsonItems.PATHS]?[_ednpoint];
+            Assert.True(path is not null, $"The path '{_ednpoint}' is missing.");
+        });
+
+        return this;
+    }
+
+    static string TransformPattern(string pattern)
+    {
+        string transformed = Regex.Replace(pattern, @"{[^:]+(?:[:][^}]*)?}", m =>
+        {
+            var itemName = Regex.Match(m.Value, @"{([^:}]+)").Groups[1].Value;
+            return "{" + itemName + "}";
+        });
+
+        return transformed;
+    }
+    #endregion
+     
+
     public NoBreaky<TProgram> WithHeaders(Action<HeaderAssertionBuilder> headerAssertions)
     {
 
         return this;
     }
 
-    public NoBreaky<TProgram> Endpoint([StringSyntax("Route")] string pattern)
-    {
-
-        return this;
-    }
 
     public void IsSafe()
     {
+        var httpClient = _applicationFactory.CreateClient();
+        var response = httpClient.GetAsync(_baseOpenApiUrl).GetAwaiter().GetResult();
+        var responseAsString = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+        var responseAsObject = JObject.Parse(responseAsString);
 
+        foreach (var func in _functions)
+        {
+            func(responseAsObject);
+        }
     }
 }
