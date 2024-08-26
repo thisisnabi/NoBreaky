@@ -96,7 +96,7 @@ public class NoBreaky<TProgram> where TProgram : class
     }
     #endregion
 
-    #region Header Assertion
+    #region Request Assertion
     public NoBreaky<TProgram> RequestWith(Action<RequestBuilder> requestAction)
     {
         var builder = new RequestBuilder();
@@ -107,14 +107,16 @@ public class NoBreaky<TProgram> where TProgram : class
         return this;
     }
 
-    public NoBreaky<TProgram> ResponseOn<TResponseModel>()
-    {
-      
-        return this;
-    }
-
     #endregion
 
+
+    #region Response Assertion
+    public NoBreaky<TProgram> ResponseOn<TResponseModel>()
+    {
+
+        return this;
+    }
+    #endregion
 
     public void IsSafe()
     {
