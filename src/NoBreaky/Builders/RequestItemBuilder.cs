@@ -1,6 +1,6 @@
 ﻿using NoBreaky.Models;
 
-namespace NoBreaky.AssertionBuilders;
+namespace NoBreaky.Builders;
 
 public class RequestItemBuilder
 {
