@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json.Linq;
-using NoBreaky.AssertionBuilders;
 using NoBreaky.Assertions;
+using NoBreaky.Builders;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using Xunit;
@@ -107,13 +107,9 @@ public class NoBreaky<TProgram> where TProgram : class
         return this;
     }
 
-    public NoBreaky<TProgram> ResponseOn(Action<ResponseBuilder> requestAction)
+    public NoBreaky<TProgram> ResponseOn<TResponseModel>()
     {
-        var builder = new ResponseBuilder();
-        requestAction(builder);
-
-        var items = builder.Build();
-
+      
         return this;
     }
 
